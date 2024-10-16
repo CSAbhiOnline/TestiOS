@@ -3,8 +3,10 @@ workflows:
     name: iOS Simulator Build Workflow
     environment:
       xcode: latest
-      cocoapods: default
     scripts:
+      - name: Grant execution permissions to gradlew
+        script: |
+          chmod +x ./gradlew
       - name: Build shared module for iOS simulator
         script: |
           # Build the shared framework for use in the iOS app (x86_64 for simulator)
