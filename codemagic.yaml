@@ -4,19 +4,18 @@ workflows:
     environment:
       xcode: latest
       cocoapods: default
-      kotlin_version: 1.9.0
     scripts:
       - name: Install dependencies
         script: |
-          # Install CocoaPods dependencies if you are using them
+          # Install CocoaPods dependencies if you're using them
           cd iosApp && pod install
-      - name: Build for iOS Simulator
+      - name: Build shared module for iOS simulator
         script: |
-          # Build the shared framework for use in iOS
+          # Build the shared framework for use in the iOS app (x86_64 for simulator)
           ./gradlew :shared:packForXcode -PXCODE_CONFIGURATION=Debug -PXCODE_ARCHS=x86_64
-      - name: Build the iOS App
+      - name: Build the iOS app for simulator
         script: |
-          # Build the iOS app for the simulator (no signing needed)
+          # Build the iOS app for the simulator without signing
           xcodebuild \
             -workspace iosApp/iosApp.xcworkspace \
             -scheme iosApp \
